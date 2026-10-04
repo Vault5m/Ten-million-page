@@ -6,57 +6,68 @@
 <title>message only meant for you</title>
 <style>
 _{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;user-select:none}
-header{text-align:center;padding:50px 20px;background:radial-gradient(circle at top,#2a2210,#0a0a0a);border-bottom:3px solid #ffcc00}
-h1{color:#ffcc00;font-size:48px;line-height:1}
-h1 span{display:block;color:#fff;font-size:20px;letter-spacing:7px;font-weight:300;margin-bottom:10px}
-.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px auto;max-width:900px}
-.stat{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:14px 18px;min-width:130px}
-.stat b{color:#ffcc00;font-size:26px;display:block}
-.paper-wall{width:98%;max-width:1220px;margin:20px auto;background:#fdf6d8;padding:12px;border-radius:8px;min-height:400px}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:5px}
-.paper{aspect-ratio:3/4;background:linear-gradient(180deg,#fffef8,#f7f1de);border:1px solid #c8b98f;border-radius:2px;box-shadow:1px 1px 3px rgba(0,0,0,.3), 2px 2px 6px rgba(0,0,0,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:8px;color:#7a6e4f;font-weight:bold;transition:.15s;transform:rotate(-0.3deg)}
-.paper:nth-child(even){transform:rotate(0.4deg)}
-.paper:hover{transform:translateY(-4px) rotate(-1deg) scale(1.08);background:#fff;border-color:#ffcc00;box-shadow:0 8px 20px rgba(0,0,0,.6);z-index:2;color:#000}
-.paper.sold{background:repeating-linear-gradient(45deg,#111,#111 5px,#1e1e1e 5px,#1e1e1e 10px);color:#00ff88;border-color:#00ff88;transform:none}
-.badge{display:inline-block;background:#ffcc00;color:#000;padding:6px 14px;border-radius:20px;font-weight:bold;margin:6px;font-size:12px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;z-index:99;padding:15px}
-.box{background:#181818;border:2px solid #ffcc00;border-radius:16px;padding:22px;max-width:430px;width:100%}
-.wallet{background:#000;border:1px solid #333;padding:12px;border-radius:8px;word-break:break-all;font-size:11px;margin:10px 0}
-.btn{width:100%;padding:13px;border-radius:8px;border:none;font-weight:bold;cursor:pointer;margin-top:10px;font-size:15px}
+body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:40px 15px;background:radial-gradient(circle at top,#2a2210,#0a0a0a);border-bottom:3px solid #ffcc00}
+h1{color:#ffcc00;font-size:42px;line-height:1}
+h1 span{display:block;color:#fff;font-size:18px;letter-spacing:6px;font-weight:300;margin-bottom:8px}
+.stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:20px auto;max-width:900px}
+.stat{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:12px 14px;min-width:110px;text-align:center}
+.stat b{color:#ffcc00;font-size:22px;display:block}
+.badge{display:inline-block;background:#ffcc00;color:#000;padding:6px 12px;border-radius:20px;font-weight:bold;margin:5px;font-size:11px}
+.paper-wall{width:98%;max-width:1220px;margin:15px auto;background:#fdf6d8;padding:15px;border-radius:8px;min-height:400px}
+#grid{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.paper{width:44px;height:58px;background:linear-gradient(180deg,#ffffff,#f5eec2);border:1px solid #c9b97a;border-radius:3px;box-shadow:2px 2px 4px rgba(0,0,0,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:8px;color:#6b5e35;font-weight:bold}
+.paper:hover{transform:scale(1.12);background:#fff;border-color:#ffcc00;z-index:2;color:#000}
+.paper.sold{background:#111;color:#00ff88;border-color:#00ff88}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:99;padding:15px}
+.box{background:#181818;border:2px solid #ffcc00;border-radius:16px;padding:20px;max-width:430px;width:100%}
+.wallet{background:#000;border:1px solid #333;padding:10px;border-radius:8px;word-break:break-all;font-size:11px;margin:10px 0}
+.btn{width:100%;padding:12px;border-radius:8px;border:none;font-weight:bold;cursor:pointer;margin-top:10px}
 .y{background:#ffcc00;color:#000}.d{background:#222;color:#fff;border:1px solid #444}
 </style>
-<script>document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('keydown',e=>{if(e.ctrlKey&&['c','u','s'].includes(e.key.toLowerCase())||e.key==='F12')e.preventDefault()})</script>
 </head>
 <body>
 <header>
 <h1><span>message only meant for you</span>THE TEN MILLION PAGE</h1>
-<p style="max-width:700px;margin:15px auto;color:#ccc"><b style="color:#fff">10,000,000 REAL Papers. $2 Each. 1 Paper = 1 Person Forever.</b><br>Own a piece of internet history. Your paper, your message, your link - permanent.</p>
-<div><span class="badge">🔥 VIRAL - LIMITED</span><span class="badge">⏳ PRICE $2 -> $10 SOON</span><span class="badge">🛡️ FOREVER ON WALL</span></div>
+<p style="max-width:700px;margin:12px auto;color:#ccc;font-size:14px">10,000,000 REAL Papers. $2 Each. 1 Paper = 1 Person Forever.</p>
+<div><span class="badge">🔥 VIRAL</span><span class="badge">⏳ $2 -> $10 SOON</span><span class="badge">🛡️ FOREVER</span></div>
 <div class="stats"><div class="stat"><b id="sold">0</b>SOLD</div><div class="stat"><b>10,000,000</b>TOTAL</div><div class="stat"><b>$2</b>PRICE</div><div class="stat"><b id="raised">$0</b>RAISED</div></div>
-<p style="color:#ffcc00;font-weight:bold;margin-top:10px">⚠️ 1 PAPER PER PERSON - ONCE SOLD NEVER AGAIN - REAL PAPER DESIGN</p>
+<p style="color:#ffcc00;font-weight:bold;font-size:13px;margin-top:10px">⚠️ 1 PAPER PER PERSON - ONCE SOLD NEVER AGAIN</p>
 </header>
 <div class="paper-wall">
-<h3 style="color:#5a4d20;text-align:center;margin-bottom:8px;font-size:13px">↓↓ CLICK ANY PAPER TO BUY - 5,000 PAPERS LOADED (10M TOTAL) ↓↓</h3>
+<h3 style="color:#5a4d20;text-align:center;margin-bottom:10px;font-size:13px">↓↓ CLICK ANY PAPER TO BUY - 5,000 PAPERS LOADED (10M TOTAL) ↓↓</h3>
 <div id="grid"></div>
-<div style="text-align:center;color:#8a7d5a;font-size:11px;padding:12px;margin-top:10px">© 2026 Ten Million Page™ - Protected Original Idea - Copying, cloning, scraping prohibited by DMCA - 10,000,000 papers numbered #1 to #10,000,000</div>
+<div style="text-align:center;color:#8a7d5a;font-size:10px;padding:10px;margin-top:10px">© 2026 Ten Million Page™ - Protected - 10,000,000 papers #1 to #10,000,000 - Copying prohibited</div>
 </div>
-<div style="text-align:center;padding:20px;color:#444;font-size:11px">© 2026 Vault5m - All Rights Reserved - 1 Person = 1 Paper - Anti-copy protected</div>
+<div style="text-align:center;padding:15px;color:#444;font-size:10px">© 2026 Vault5m - 1 Person = 1 Paper</div>
 <div class="modal" id="modal"><div class="box">
 <h2 style="color:#ffcc00">Paper #<span id="pid">0</span> - $2</h2>
-<p style="font-size:12px;color:#aaa;margin:8px 0">Real attractive paper - looks like real torn paper with shadow. 1 per person. Forever.</p>
-<div class="wallet"><b style="color:#ffcc00">PAY TO TRUST WALLET (USDT BEP20)</b><br><br>Send <b>$2 USDT BEP20</b> to:<br><span id="addr" style="color:#00ff88;font-size:12px">REPLACE_WITH_YOUR_TRUST_WALLET_ADDRESS</span><br><br>Network: BSC BEP20 - low fees<br><button class="btn d" onclick="navigator.clipboard.writeText(document.getElementById('addr').innerText);alert('Copied')">COPY ADDRESS</button></div>
-<input id="link" placeholder="Your Name / Website / Message for paper" style="width:100%;padding:11px;border-radius:8px;background:#000;border:1px solid #333;color:#fff">
-<button class="btn y" onclick="claim()">I SENT $2 - CLAIM MY PAPER</button>
-<button class="btn d" onclick="document.getElementById('modal').style.display='none'">CANCEL</button>
-<p style="font-size:11px;color:#777;margin-top:8px">🔒 Money goes directly to my Trust Wallet - verified - no middleman<br>🚀 Will be famous - buy now before price rises<br>💎 10 million papers only</p>
+<div class="wallet"><b style="color:#ffcc00">PAY TO TRUST WALLET USDT BEP20</b><br><br>Send $2 to:<br><span id="addr" style="color:#00ff88">REPLACE_WITH_YOUR_TRUST_WALLET_ADDRESS</span><br><br>Network: BSC BEP20<br><button class="btn d" onclick="navigator.clipboard.writeText(document.getElementById('addr').innerText);alert('Copied!')">COPY ADDRESS</button></div>
+<input id="link" placeholder="Your name / link / message" style="width:100%;padding:10px;border-radius:8px;background:#000;border:1px solid #333;color:#fff">
+<button class="btn y" onclick="claim()">I SENT $2 - CLAIM PAPER</button>
+<button class="btn d" onclick="document.getElementById('modal').style.display='none'">CLOSE</button>
 </div></div>
 <script>
 const ADDR="REPLACE_WITH_YOUR_TRUST_WALLET_ADDRESS";
 http://document.getElementById('addr').innerText=ADDR;
-const grid=document.getElementById('grid');let sel=null,selId=0;
-for(let i=1;i<=5000;i++){let d=document.createElement('div');d.className='paper';d.innerText=i;d.onclick=()=>{sel=d;selId=i;document.getElementById('pid').innerText=i;document.getElementById('modal').style.display='flex';};grid.appendChild(d);}
-function claim(){let v=document.getElementById('link').value||'Anonymous';if(sel){sel.classList.add('sold');sel.innerText='SOLD';}let s=parseInt(document.getElementById('sold').innerText)+1;document.getElementById('sold').innerText=s;document.getElementById('raised').innerText='$'+(s_2);alert('Paper #'+selId+' reserved! Send proof of $2 + "'+v+'" to owner. Your real paper uploaded in 10 min.');document.getElementById('modal').style.display='none';}
+const grid=document.getElementById('grid');
+let sel=null,selId=0;
+for(let i=1;i<=5000;i++){
+let d=document.createElement('div');
+http://d.className='paper';
+http://d.innerText=i;
+http://d.onclick=()=>{sel=d;selId=i;document.getElementById('pid').innerText=i;document.getElementById('modal').style.display='flex';};
+http://grid.appendChild(d);
+}
+function claim(){
+let v=document.getElementById('link').value||'Anonymous';
+if(sel){sel.classList.add('sold');sel.innerText='SOLD';}
+let s=parseInt(document.getElementById('sold').innerText)+1;
+http://document.getElementById('sold').innerText=s;
+http://document.getElementById('raised').innerText='$'+(s_2);
+alert('Paper #'+selId+' reserved! You sent $2 for: '+v);
+http://document.getElementById('modal').style.display='none';
+}
 </script>
 </body>
 </html>
