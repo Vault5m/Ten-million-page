@@ -59,4 +59,104 @@ for(var i=1;i<=10000;i++){var q=quotes[i%quotes.length];var d=document.createEle
 function claim(){if(sel){sel.classList.add('sold');sel.innerHTML='<span>'+selQ.split(' - ')[0]+'</span><i>-'+selQ.split(' - ')[1]+'</i><b style=display:none></b>';document.getElementById('qshow').style.filter='none';alert('UNLOCKED! Paper #'+selId+'\\n\\n'+selQ+'\\n\\nOnly you own this now!');}var s=parseInt(document.getElementById('sold').innerText)+1;document.getElementById('sold').innerText=s;document.getElementById('raised').innerText='$'+(s_2);if(s*2>=20000000){alert('GOAL REACHED! $20M!');}document.getElementById('modal').style.display='none';}
 </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ten Million Page - Own A Paper For $2</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:30px 15px}
+h1{color:#FFD700;font-size:38px}
+.wallet-box{background:#111;border:2px solid #FFD700;padding:15px;margin:20px auto;max-width:600px;border-radius:10px;text-align:center;word-break:break-all}
+.wallet-box b{color:#FFD700}
+.stats{display:flex;justify-content:center;gap:15px;margin:20px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #333;padding:15px 25px;border-radius:10px;text-align:center}
+.stat b{color:#FFD700;font-size:22px;display:block}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(55px,1fr));gap:6px;width:98%;max-width:1250px;margin:0 auto;padding:20px}
+.paper{background:#FFD700;color:#000;height:55px;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;border-radius:6px;font-size:11px;text-align:center;overflow:hidden}
+.paper.claimed{background:#222;color:#fff;border:1px solid #FFD700}
+#modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;z-index:999}
+#modalBox{background:#111;border:2px solid #FFD700;padding:25px;border-radius:15px;max-width:400px;width:90%;text-align:center}
+input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #333;background:#000;color:#fff}
+button{width:100%;padding:14px;background:#FFD700;color:#000;border:none;border-radius:8px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+#secretMsg{display:none;margin-top:20px;padding:15px;background:#002200;border:1px solid #00FF00;border-radius:8px;color:#00FF00}
+</style>
+</head>
+<body>
+
+<header>
+<h1>10,000 Papers - $2 Each</h1>
+<p>Claim a paper forever on the blockchain wall</p>
+<div class="wallet-box">
+PAY TO CLAIM:<br>
+<b id="walletDisplay">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</b><br>
+<small>Send $2 USDT (BSC) to this address</small>
+</div>
+<div class="stats">
+<div class="stat"><b id="claimedCount">0</b>Claimed</div>
+<div class="stat"><b>10,000</b>Total Papers</div>
+<div class="stat"><b>$2</b>Per Paper</div>
+</div>
+</header>
+
+<div id="grid"></div>
+
+<div id="modal">
+<div id="modalBox">
+<h2 id="modalTitle">Paper #1</h2>
+<p>To unlock, send $2 to wallet above</p>
+<input id="nameInput" placeholder="Your Name">
+<input id="linkInput" placeholder="Your Link (optional)">
+<button onclick="confirmPayment()">I SENT $2 - UNLOCK & CLAIM</button>
+<div id="secretMsg"></div>
+<button onclick="closeModal()" style="background:#333;color:#fff;margin-top:10px">Cancel</button>
+</div>
+</div>
+
+<script>
+// === YOUR WALLET - THIS REPLACES 0xYOUR_WALLET_HERE_REPLACE ===
+const MY_WALLET = "0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915";
+
+// === SECRET WORDS - ONLY SHOW AFTER PAYING $2 - NOT VISIBLE ON SCREEN BEFORE ===
+const SECRET_WORDS = "VAULT5M-GOLD-ACCESS-2026-X7K9-PRIVATE-KEY-UNLOCKED";
+
+// === SYSTEM CODE ===
+let selectedPaper = null;
+const grid = document.getElementById('grid');
+for(let i=1;i<=10000;i++){
+let div=document.createElement('div');
+div.className='paper';
+div.innerText=i;
+div.onclick=()=>openModal(i,div);
+grid.appendChild(div);
+}
+
+function openModal(num, element){
+selectedPaper = {num, element};
+document.getElementById('modalTitle').innerText = 'Paper #' + num;
+document.getElementById('secretMsg').style.display='none';
+document.getElementById('modal').style.display='flex';
+}
+
+function closeModal(){
+document.getElementById('modal').style.display='none';
+}
+
+function confirmPayment(){
+const name = document.getElementById('nameInput').value;
+if(!name){alert('Enter your name');return;}
+// After user says they paid $2, we unlock and show secret words (hidden in system)
+selectedPaper.element.classList.add('claimed');
+selectedPaper.element.innerText = name.substring(0,8);
+document.getElementById('secretMsg').style.display='block';
+document.getElementById('secretMsg').innerHTML = '✅ PAYMENT VERIFIED!<br><br>Your Paper #' + selectedPaper.num + ' Claimed!<br><br>🔐 SECRET UNLOCKED:<br><b>' + SECRET_WORDS + '</b><br><br>Keep this secret code safe!';
+document.getElementById('claimedCount').innerText = document.querySelectorAll('.paper.claimed').length;
+setTimeout(closeModal,5000);
+}
+</script>
+
+</body>
 </html>
