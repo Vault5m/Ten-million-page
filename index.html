@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>message only meant for you</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+_{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#fff;font-family:Arial,sans-serif}
 header{text-align:center;padding:35px 12px;background:#000;border-bottom:3px solid #FFD700}
 h1{color:#FFD700;font-size:40px;line-height:1}h1 span{display:block;color:#fff;font-size:16px;letter-spacing:6px;margin-bottom:8px}
@@ -55,14 +55,7 @@ h1{color:#FFD700;font-size:40px;line-height:1}h1 span{display:block;color:#fff;f
 var quotes=[["Dream big,\nwork hard","Life"],["Stay hungry,\nstay foolish","Jobs"],["Just keep\nswimming","Dory"],["Hakuna Matata,\nno worries","Lion King"],["With great power,\ncomes responsibility","Spiderman"],["I can do this\nall day","Cap"],["To infinity\nand beyond","Toy Story"],["Why so serious?\nSmile more","Joker"],["Never give up,\nnever surrender","Movie"],["Fear is only\nin your mind","Life"],["Push yourself,\nno one else will","Life"],["Be the change\nyou want","Gandhi"],["Fall seven,\nstand eight","Japan"],["Power comes\nfrom within","Anime"],["Believe in you","Naruto"],["Plus Ultra!\nGo beyond","MHA"],["King of Pirates","Luffy"],["Keep running\nnever stop","Anime"],["Your only limit\nis mind","Life"],["Do or do not,\nthere is no try","Yoda"],["Let it go,\nlet it be","Frozen"],["Adventure is out\nthere!","Up"],["Believe in\n yourself","Anime"],["Work hard\nin silence","Life"],["Small steps\nbig results","Life"],["You are stronger\nthan you think","Life"],["Keep moving\nforward","Robinsons"],["No pain\nno gain","Life"],["Winners never\nquit","Life"],["Focus on good","Life"],["Every day is\nsecond chance","Life"],["Be brave,\nbe bold","Life"],["You got this,\nkeep going","Life"],["Impossible is\nopinion","Mandela"],["Turn wounds\ninto wisdom","Oprah"],["Create your own\nsunshine","Life"],["Life is tough,\nso are you","Life"],["You matter\nmore than you know","Life"],["One piece at a time","One Piece"],["You are your only\nlimit","Life"],["Do something\ntoday","Life"],["Be kind\nbe brave","Wonder"],["Believe you can","Life"],["Best time\nis now","Life"],["Don't stop when\ntired","Life"],["Be a warrior\nnot a worrier","Life"],["Life is short,\nmake it sweet","Life"],["Keep hustling\nkeep shining","Malawi"],["You are enough","Life"],["Chase dream\nnot people","Life"],["Be stronger than\nexcuses","Life"],["Rise and grind","Life"]];
 var grid=document.getElementById('grid');var sel=null,selId=0;
 for(var i=1;i<=10000;i++){var q=quotes[i%quotes.length];var d=document.createElement('div');d.className='paper';d.innerHTML='<span>'+q[0]+'</span><i>-'+q[1]+'</i>';d.setAttribute('data-q',q[0]+' - '+q[1]);d.setAttribute('data-id',i);d.onclick=function(){sel=this;selId=this.getAttribute('data-id');document.getElementById('pid').innerText=selId;document.getElementById('qshow').innerText=this.getAttribute('data-q');document.getElementById('modal').style.display='flex';};grid.appendChild(d);}
-function claim(){if(sel){sel.classList.add('sold');}var s=parseInt(document.getElementById('sold').innerText)+1;document.getElementById('sold').innerText=s;document.getElementById('raised').innerText='$'+(s*2);if(s*2>=20000000){alert('GOAL REACHED! $20M!');}document.getElementById('modal').style.display='none';}
+function claim(){if(sel){sel.classList.add('sold');}var s=parseInt(document.getElementById('sold').innerText)+1;document.getElementById('sold').innerText=s;document.getElementById('raised').innerText='$'+(s_2);if(s*2>=20000000){alert('GOAL REACHED! $20M!');}document.getElementById('modal').style.display='none';}
 </script>
 </body>
 </html>
-Yes bro - it has everything:
-- ✅ *Gold Black only* - no other colors
-- ✅ *10M papers with 2-line motivation* inside each
-- ✅ *$2 purchase* - click paper -> pay modal
-- ✅ *$20M goal* - shown in stats + header + bottom
-
-Commit this one - it's the final final one.
