@@ -9,7 +9,77 @@
 <script>for(let i=1;i<=10000;i++){let d=document.createElement('div');d.className='box';d.innerText='LOCKED #'+i;d.onclick=()=>alert('LOCKED!\nPay $2 first via Trust Wallet to:\n0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');document.getElementById('g').appendChild(d)}</script>
 </body></html>
 <head><!DOCTYPE html>
-<html>
+<html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 Million Papers - $2 Each</title>
+<style>
+body{background:#000;color:#fff;font-family:Arial,sans-serif;margin:0;padding:0;text-align:center}
+.top{position:sticky;top:0;background:#ffeb00;color:#000;padding:14px;font-weight:900;z-index:10}
+h1{margin:15px 0;font-size:24px}
+.card{border:2px solid #ffeb00;border-radius:15px;margin:10px;padding:15px}
+.addr{border:2px solid #ffeb00;border-radius:12px;padding:12px;color:#00ff88;font-weight:bold;word-break:break-all;font-size:13px;margin:10px 0}
+.btn{width:100%;padding:15px;border:0;border-radius:12px;font-weight:900;font-size:16px;margin-top:8px}
+.yellow{background:#ffeb00;color:#000}
+.green{background:#25D366;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px}
+.box{border:2px solid #ffeb00;border-radius:12px;padding:22px 5px;font-size:12px;font-weight:bold}
+.box:active{background:#ffeb00;color:#000}
+small{color:#aaa}
+</style>
+</head>
+<body>
+<div class="top">LOCKED - YOU MUST PAY $2 FIRST VIA TRUST WALLET</div>
+<h1>10 million Papers - $2 Each</h1>
+<div class="card">
+Send $2 USDT BEP20 BSC via Trust Wallet to:<br>
+<div class="addr" id="wallet">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</div>
+<button class="btn yellow" onclick="copyW()">COPY WALLET</button>
+<button class="btn green" onclick="paid()">I PAID - UNLOCK ON WHATSAPP</button>
+<small id="network">Network BSC BEP20 - Amount $2 USDT<br>Available: <span id="avail">1000</span> / 10,000,000 | Sold: <span id="sold">0</span></small>
+</div>
+<div class="grid" id="grid"></div>
+<script>
+const MAX=10000000;
+const BATCH=500;
+let sold=parseInt(localStorage.getItem('sold')||'0');
+let available=parseInt(localStorage.getItem('available')||'1000');
+const wallet="0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915";
+function save(){localStorage.setItem('sold',sold);localStorage.setItem('available',available);}
+function copyW(){navigator.clipboard.writeText(wallet);alert('Wallet copied! Open Trust Wallet and send $2 USDT BEP20');}
+function paid(){
+let msg=encodeURIComponent(`Hi bro I paid $2 for Paper. My TxID: [paste here]. Wallet: ${wallet}. Please unlock my paper #${sold+1}`);
+window.open(`https://wa.me/?text=${msg}`,'_blank');
+}
+function restockIfNeeded(){
+if(available<=500 && (sold+available)<MAX){
+available+=BATCH;
+if(sold+available>MAX) available=MAX-sold;
+save();
+}
+}
+function buy(i){
+sold++; available--;
+save(); restockIfNeeded(); render();
+}
+function render(){
+document.getElementById('sold').innerText=sold;
+document.getElementById('avail').innerText=available;
+let g=document.getElementById('grid'); g.innerHTML='';
+for(let i=1;i<=available;i++){
+let d=document.createElement('div');d.className='box';
+d.innerText='LOCKED #'+(sold+i);
+d.onclick=()=>{if(confirm('After payment? Tap OK to unlock #'+(sold+i)+' for demo. Buyer must pay first!')) buy(i);};
+g.appendChild(d);
+}
+if(sold>=MAX) g.innerHTML='<h2>SOLD OUT - 10 MILLION SOLD!</h2>';
+}
+render();
+</script>
+</body>
+</html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>10 Million Papers</title>
