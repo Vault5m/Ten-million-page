@@ -1,325 +1,41 @@
 <!DOCTYPE html>
-<html lang="en"><!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>10,000 Papers - $2 Each</title>
-<style>body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0}.banner{background:yellow;color:#000;padding:12px;font-weight:bold}.wallet-box{background:#111;border:2px solid yellow;margin:20px auto;padding:15px;max-width:500px;border-radius:10px;word-break:break-all}.wallet{color:#00ff88;margin:10px 0}.btn{background:yellow;color:#000;border:none;padding:10px 20px;border-radius:5px;font-weight:bold}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(75px,1fr));gap:8px;padding:20px}.box{background:#222;border:1px solid #444;padding:15px 5px;border-radius:5px;font-size:11px;cursor:pointer}</style></head><body>
-<div class="banner">LOCKED - YOU MUST PAY $2 FIRST VIA TRUST WALLET</div>
-<h2>10 million Papers - $2 Each</h2>
-<div class="wallet-box"><p>Send $2 USDT BEP20 BSC via Trust Wallet to:</p><div class="wallet">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</div><button class="btn" onclick="navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');this.innerText='COPIED!'">COPY WALLET</button><p style="font-size:11px;color:#aaa">Network BSC BEP20 - Amount $2 USDT</p></div>
-<div class="grid" id="g"></div>
-<script>for(let i=1;i<=10000;i++){let d=document.createElement('div');d.className='box';d.innerText='LOCKED #'+i;d.onclick=()=>alert('LOCKED!\nPay $2 first via Trust Wallet to:\n0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');document.getElementById('g').appendChild(d)}</script>
-</body></html>
-<head><!DOCTYPE html>
-<html><!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>10 Million Papers - $2 Each</title>
+<title>10 million Papers - $2 Each</title>
 <style>
-body{background:#000;color:#fff;font-family:Arial,sans-serif;margin:0;padding:0;text-align:center}
-.top{position:sticky;top:0;background:#ffeb00;color:#000;padding:14px;font-weight:900;z-index:10}
-h1{margin:15px 0;font-size:24px}
-.card{border:2px solid #ffeb00;border-radius:15px;margin:10px;padding:15px}
-.addr{border:2px solid #ffeb00;border-radius:12px;padding:12px;color:#00ff88;font-weight:bold;word-break:break-all;font-size:13px;margin:10px 0}
-.btn{width:100%;padding:15px;border:0;border-radius:12px;font-weight:900;font-size:16px;margin-top:8px}
-.yellow{background:#ffeb00;color:#000}
-.green{background:#25D366;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px}
-.box{border:2px solid #ffeb00;border-radius:12px;padding:22px 5px;font-size:12px;font-weight:bold}
-.box:active{background:#ffeb00;color:#000}
-small{color:#aaa}
+body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0;padding:0}
+.top{background:#ffeb00;color:#000;padding:14px;font-weight:900;font-size:18px}
+h2{font-size:26px;margin:15px 0}
+.card{border:2px solid #ffeb00;border-radius:15px;margin:12px;padding:15px}
+.addr{border:2px solid #ffeb00;border-radius:12px;padding:12px;color:#00ff88;font-weight:bold;word-break:break-all;margin:12px 0}
+.btn{background:#ffeb00;color:#000;border:0;width:100%;padding:15px;border-radius:10px;font-weight:900;font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}
+.box{border:2px solid #ffeb00;border-radius:15px;padding:22px 5px;font-weight:bold}
 </style>
 </head>
 <body>
 <div class="top">LOCKED - YOU MUST PAY $2 FIRST VIA TRUST WALLET</div>
-<h1>10 million Papers - $2 Each</h1>
+<h2>10 million Papers - $2 Each</h2>
 <div class="card">
-Send $2 USDT BEP20 BSC via Trust Wallet to:<br>
-<div class="addr" id="wallet">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</div>
-<button class="btn yellow" onclick="copyW()">COPY WALLET</button>
-<button class="btn green" onclick="paid()">I PAID - UNLOCK ON WHATSAPP</button>
-<small id="network">Network BSC BEP20 - Amount $2 USDT<br>Available: <span id="avail">1000</span> / 10,000,000 | Sold: <span id="sold">0</span></small>
+Send $2 USDT BEP20 BSC via Trust Wallet to:
+<div class="addr" id="w">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</div>
+<button class="btn" onclick="navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');alert('Copied!')">COPY WALLET</button>
+<div style="margin-top:10px;color:#aaa;font-size:12px">Network BSC BEP20 - Amount $2 USDT<br><span id="count"></span></div>
 </div>
 <div class="grid" id="grid"></div>
 <script>
-const MAX=10000000;
-const BATCH=500;
-let sold=parseInt(localStorage.getItem('sold')||'0');
-let available=parseInt(localStorage.getItem('available')||'1000');
-const wallet="0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915";
-function save(){localStorage.setItem('sold',sold);localStorage.setItem('available',available);}
-function copyW(){navigator.clipboard.writeText(wallet);alert('Wallet copied! Open Trust Wallet and send $2 USDT BEP20');}
-function paid(){
-let msg=encodeURIComponent(`Hi bro I paid $2 for Paper. My TxID: [paste here]. Wallet: ${wallet}. Please unlock my paper #${sold+1}`);
-window.open(`https://wa.me/?text=${msg}`,'_blank');
-}
-function restockIfNeeded(){
-if(available<=500 && (sold+available)<MAX){
-available+=BATCH;
-if(sold+available>MAX) available=MAX-sold;
-save();
-}
-}
-function buy(i){
-sold++; available--;
-save(); restockIfNeeded(); render();
-}
+const MAX=10000000, BATCH=500;
+let sold=parseInt(localStorage.getItem('s')||'0');
+let available=parseInt(localStorage.getItem('a')||'1000');
+function save(){localStorage.setItem('s',sold);localStorage.setItem('a',available)}
+function check(){if(available<=500 && sold+available<MAX){available+=BATCH;if(sold+available>MAX)available=MAX-sold;save()}}
 function render(){
-document.getElementById('sold').innerText=sold;
-document.getElementById('avail').innerText=available;
-let g=document.getElementById('grid'); g.innerHTML='';
-for(let i=1;i<=available;i++){
-let d=document.createElement('div');d.className='box';
-d.innerText='LOCKED #'+(sold+i);
-d.onclick=()=>{if(confirm('After payment? Tap OK to unlock #'+(sold+i)+' for demo. Buyer must pay first!')) buy(i);};
-g.appendChild(d);
-}
-if(sold>=MAX) g.innerHTML='<h2>SOLD OUT - 10 MILLION SOLD!</h2>';
+document.getElementById('count').innerText=`Available: ${available} / ${MAX} | Sold: ${sold}`;
+let g=document.getElementById('grid');g.innerHTML='';
+for(let i=1;i<=available;i++){let d=document.createElement('div');d.className='box';d.innerHTML=`LOCKED<br>#${sold+i}`;d.onclick=()=>{sold++;available--;save();check();render()};g.appendChild(d)}
 }
 render();
 </script>
-</body>
-</html>
-<head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>10 Million Papers</title>
-<style>
-body{background:#000;color:#fff;text-align:center;font-family:Arial;margin:0;padding:10px}
-.banner{background:#ffeb00;color:#000;padding:12px;font-weight:bold}
-.wallet{border:2px solid #ffeb00;border-radius:15px;padding:15px;margin:15px 0;word-break:break-all}
-.btn{background:#ffeb00;border:0;padding:15px;width:100%;border-radius:10px;font-weight:bold;font-size:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px}
-.box{border:2px solid #ffeb00;border-radius:15px;padding:20px 5px;font-size:13px}
-</style>
-</head>
-<body>
-<div class="banner">LOCKED - YOU MUST PAY $2 FIRST VIA TRUST WALLET</div>
-<h2>10,000,000 Papers - $2 Each</h2>
-<div class="wallet">
-Send $2 USDT BEP20 BSC via Trust Wallet to:<br>
-<span id="w" style="color:#00ff88">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</span><br><br>
-<button class="btn" onclick="navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');this.innerText='COPIED!'">COPY WALLET</button>
-<p>Network BSC BEP20 - Amount $2 USDT</p>
-<p>Available: <span id="count">1000</span> / 10,000,000</p>
-</div>
-<div class="grid" id="grid"></div>
-<script>
-let totalAvailable=1000;
-const totalMax=10000000;
-let sold=0;
-function render(){
- document.getElementById('grid').innerHTML='';
- document.getElementById('count').innerText=totalAvailable;
- for(let i=1;i<=totalAvailable;i++){
-   let d=document.createElement('div'); d.className='box';
-   d.innerText='LOCKED #'+(sold+i);
-   d.onclick=function(){ 
-     this.style.background='#333'; 
-     // simulate sold
-     sold++; totalAvailable--;
-     // auto restock logic: when half sold (500 left) add 500
-     if(totalAvailable<=500 && (sold+totalAvailable) < totalMax){
-       totalAvailable+=500;
-     }
-     render();
-   };
-   document.getElementById('grid').appendChild(d);
- }
-}
-render();
-</script>
-</body>
-</html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>message only meant for you</title>
-<style>
-_{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:Arial,sans-serif}
-header{text-align:center;padding:35px 12px;background:#000;border-bottom:3px solid #FFD700}
-h1{color:#FFD700;font-size:40px;line-height:1}h1 span{display:block;color:#fff;font-size:16px;letter-spacing:6px;margin-bottom:8px}
-.stats{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:18px auto;max-width:950px}
-.stat{background:#000;border:1px solid #FFD700;border-radius:12px;padding:11px 14px;min-width:100px;text-align:center}
-.stat b{color:#FFD700;font-size:20px;display:block}
-.badge{background:#FFD700;color:#000;padding:5px 12px;border-radius:20px;font-weight:bold;margin:4px;font-size:11px;display:inline-block}
-.paper-wall{width:98%;max-width:1250px;margin:15px auto;background:#000;border:2px solid #FFD700;padding:12px;border-radius:8px}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px}
-.paper{aspect-ratio:3/3.5;background:#111;border:1px solid #FFD700;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;text-align:center;cursor:pointer;position:relative;overflow:hidden}
-.paper span{font-size:9px;color:#FFD700;font-weight:bold;line-height:1.1;filter:blur(6px);user-select:none}
-.paper i{font-size:7px;color:#555;font-weight:bold;margin-top:4px}
-.paper b{position:absolute;color:#FFD700;font-size:10px;z-index:2;background:#000;padding:2px 6px;border-radius:10px;border:1px solid #FFD700}
-.paper.sold{background:#FFD700}.paper.sold span{filter:none;color:#000}.paper.sold b{display:none}.paper.sold i{color:#000}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:99;padding:15px}
-.box{background:#000;border:2px solid #FFD700;border-radius:16px;padding:18px;max-width:400px;width:100%}
-.btn{width:100%;padding:12px;border-radius:8px;border:none;font-weight:bold;margin-top:10px;cursor:pointer}
-.y{background:#FFD700;color:#000}.d{background:#000;color:#FFD700;border:1px solid #FFD700}
-</style>
-</head>
-<body>
-<header>
-<h1><span>message only meant for you</span>THE TEN MILLION PAGE</h1>
-<p style="color:#FFD700;font-weight:bold;font-size:13px;margin:10px">GOAL: $20,000,000 - 10M Papers x $2 Each</p>
-<div><span class="badge">🔥 GOAL $20M</span><span class="badge">💰 $2 PER PAPER</span><span class="badge">🔒 SECRET QUOTE</span></div>
-<div class="stats">
-<div class="stat"><b id="sold">0</b>SOLD</div>
-<div class="stat"><b>10M</b>PAPERS</div>
-<div class="stat"><b>$2</b>PRICE</div>
-<div class="stat"><b id="raised">$0</b>RAISED</div>
-<div class="stat"><b>$20M</b>GOAL</div>
-</div>
-<p style="color:#FFD700;font-size:11px">⚠️ PRIVATE 2-LINE MOTIVATION ONLY FOR OWNER - BLURRED UNTIL PAID</p>
-</header>
-<div class="paper-wall"><div id="grid"></div><div style="text-align:center;color:#FFD700;font-size:10px;margin-top:10px">10,000,000 x $2 = $20,000,000 - Secret wisdom hidden until $2 paid</div></div>
-<div class="modal" id="modal"><div class="box">
-<h2 style="color:#FFD700">Paper #<span id="pid">0</span> - $2</h2>
-<p style="color:#FFD700;font-size:11px;text-align:center;margin:6px 0">This paper is LOCKED. Pay $2 to unlock secret quote forever.</p>
-<p id="qshow" style="background:#111;color:#FFD700;padding:12px;border-radius:8px;margin:10px 0;font-weight:bold;white-space:pre-line;text-align:center;border:1px dashed #FFD700;filter:blur(8px)">LOCKED</p>
-<p style="color:#FFD700;font-size:10px;text-align:center">Pay to reveal</p>
-<div style="background:#111;border:1px solid #FFD700;padding:10px;border-radius:8px;word-break:break-all;font-size:11px;margin:8px 0"><b style="color:#FFD700">SEND $2 USDT BEP20</b><br><br><span id="addr" style="color:#FFD700">0xYOUR_WALLET_HERE_REPLACE</span><br><br><button class="btn d" onclick="navigator.clipboard.writeText(document.getElementById('addr').innerText);alert('Copied!')">COPY WALLET ADDRESS</button></div>
-<input id="link" placeholder="Your Name / Link (will show after paid)" style="width:100%;padding:10px;background:#111;border:1px solid #FFD700;color:#FFD700;border-radius:6px">
-<button class="btn y" onclick="claim()">I SENT $2 - UNLOCK & CLAIM</button>
-<button class="btn d" onclick="document.getElementById('modal').style.display='none'">CLOSE</button>
-<p style="font-size:10px;color:#FFD700;margin-top:8px;text-align:center">$20,000,000 GOAL - Only owner sees wisdom</p>
-</div></div>
-<script>
-var quotes=[["Dream big,\nwork hard","Life"],["Stay hungry,\nstay foolish","Jobs"],["Just keep\nswimming","Dory"],["Hakuna Matata,\nno worries","Lion King"],["With great power,\ncomes responsibility","Spiderman"],["I can do this\nall day","Cap"],["To infinity\nand beyond","Toy Story"],["Why so serious?\nSmile more","Joker"],["Never give up,\nnever surrender","Movie"],["Fear is only\nin your mind","Life"],["Push yourself,\nno one else will","Life"],["Be the change\nyou want","Gandhi"],["Fall seven,\nstand eight","Japan"],["Power comes\nfrom within","Anime"],["Believe in you","Naruto"],["Plus Ultra!\nGo beyond","MHA"],["King of Pirates","Luffy"],["Keep running\nnever stop","Anime"],["Your only limit\nis mind","Life"],["Do or do not,\nthere is no try","Yoda"],["Let it go,\nlet it be","Frozen"],["Adventure is out\nthere!","Up"],["Believe in\n yourself","Anime"],["Work hard\nin silence","Life"],["Small steps\nbig results","Life"],["You are stronger\nthan you think","Life"],["Keep moving\nforward","Robinsons"],["No pain\nno gain","Life"],["Winners never\nquit","Life"],["Focus on good","Life"],["Every day is\nsecond chance","Life"],["Be brave,\nbe bold","Life"],["You got this,\nkeep going","Life"],["Impossible is\nopinion","Mandela"],["Turn wounds\ninto wisdom","Oprah"],["Create your own\nsunshine","Life"],["Life is tough,\nso are you","Life"],["You matter\nmore than you know","Life"],["One piece at a time","One Piece"],["You are your only\nlimit","Life"],["Do something\ntoday","Life"],["Be kind\nbe brave","Wonder"],["Believe you can","Life"],["Best time\nis now","Life"],["Don't stop when\ntired","Life"],["Be a warrior\nnot a worrier","Life"],["Life is short,\nmake it sweet","Life"],["Keep hustling\nkeep shining","Malawi"],["You are enough","Life"],["Chase dream\nnot people","Life"],["Be stronger than\nexcuses","Life"],["Rise and grind","Life"]];
-var grid=document.getElementById('grid');var sel=null,selId=0;var selQ="";
-for(var i=1;i<=10000;i++){var q=quotes[i%quotes.length];var d=document.createElement('div');d.className='paper';d.innerHTML='<b>LOCKED #'+i+'</b><span>'+q[0]+'</span><i>-'+q[1]+'</i>';d.setAttribute('data-q',q[0]+' - '+q[1]);d.setAttribute('data-id',i);d.onclick=function(){sel=this;selId=this.getAttribute('data-id');selQ=this.getAttribute('data-q');document.getElementById('pid').innerText=selId;document.getElementById('qshow').innerText=selQ;document.getElementById('qshow').style.filter='blur(8px)';document.getElementById('modal').style.display='flex';};grid.appendChild(d);}
-function claim(){if(sel){sel.classList.add('sold');sel.innerHTML='<span>'+selQ.split(' - ')[0]+'</span><i>-'+selQ.split(' - ')[1]+'</i><b style=display:none></b>';document.getElementById('qshow').style.filter='none';alert('UNLOCKED! Paper #'+selId+'\\n\\n'+selQ+'\\n\\nOnly you own this now!');}var s=parseInt(document.getElementById('sold').innerText)+1;document.getElementById('sold').innerText=s;document.getElementById('raised').innerText='$'+(s_2);if(s*2>=20000000){alert('GOAL REACHED! $20M!');}document.getElementById('modal').style.display='none';}
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ten Million Page - Own A Paper For $2</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:Arial,sans-serif}
-header{text-align:center;padding:30px 15px}
-h1{color:#FFD700;font-size:38px}
-.wallet-box{background:#111;border:2px solid #FFD700;padding:15px;margin:20px auto;max-width:600px;border-radius:10px;text-align:center;word-break:break-all}
-.wallet-box b{color:#FFD700}
-.stats{display:flex;justify-content:center;gap:15px;margin:20px;flex-wrap:wrap}
-.stat{background:#111;border:1px solid #333;padding:15px 25px;border-radius:10px;text-align:center}
-.stat b{color:#FFD700;font-size:22px;display:block}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(55px,1fr));gap:6px;width:98%;max-width:1250px;margin:0 auto;padding:20px}
-.paper{background:#FFD700;color:#000;height:55px;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;border-radius:6px;font-size:11px;text-align:center;overflow:hidden}
-.paper.claimed{background:#222;color:#fff;border:1px solid #FFD700}
-#modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;z-index:999}
-#modalBox{background:#111;border:2px solid #FFD700;padding:25px;border-radius:15px;max-width:400px;width:90%;text-align:center}
-input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #333;background:#000;color:#fff}
-button{width:100%;padding:14px;background:#FFD700;color:#000;border:none;border-radius:8px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
-#secretMsg{display:none;margin-top:20px;padding:15px;background:#002200;border:1px solid #00FF00;border-radius:8px;color:#00FF00}
-</style>
-</head>
-<body>
-
-<header>
-<h1>10,000 Papers - $2 Each</h1>
-<p>Claim a paper forever on the blockchain wall</p>
-<div class="wallet-box">
-PAY TO CLAIM:<br>
-<b id="walletDisplay">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</b><br>
-<small>Send $2 USDT (BSC) to this address</small>
-</div>
-<div class="stats">
-<div class="stat"><b id="claimedCount">0</b>Claimed</div>
-<div class="stat"><b>10,000</b>Total Papers</div>
-<div class="stat"><b>$2</b>Per Paper</div>
-</div>
-</header>
-
-<div id="grid"></div>
-
-<div id="modal">
-<div id="modalBox">
-<h2 id="modalTitle">Paper #1</h2>
-<p>To unlock, send $2 to wallet above</p>
-<input id="nameInput" placeholder="Your Name">
-<input id="linkInput" placeholder="Your Link (optional)">
-<button onclick="confirmPayment()">I SENT $2 - UNLOCK & CLAIM</button>
-<div id="secretMsg"></div>
-<button onclick="closeModal()" style="background:#333;color:#fff;margin-top:10px">Cancel</button>
-</div>
-</div>
-
-<script>
-// === YOUR WALLET - THIS REPLACES 0xYOUR_WALLET_HERE_REPLACE ===
-const MY_WALLET = "0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915";
-
-// === SECRET WORDS - ONLY SHOW AFTER PAYING $2 - NOT VISIBLE ON SCREEN BEFORE ===
-const SECRET_WORDS = "VAULT5M-GOLD-ACCESS-2026-X7K9-PRIVATE-KEY-UNLOCKED";
-
-// === SYSTEM CODE ===
-let selectedPaper = null;
-const grid = document.getElementById('grid');
-for(let i=1;i<=10000;i++){
-let div=document.createElement('div');
-div.className='paper';
-div.innerText=i;
-div.onclick=()=>openModal(i,div);
-grid.appendChild(div);
-}
-
-function openModal(num, element){
-selectedPaper = {num, element};
-document.getElementById('modalTitle').innerText = 'Paper #' + num;
-document.getElementById('secretMsg').style.display='none';
-document.getElementById('modal').style.display='flex';
-}
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>10 Million Papers</title>
-<style>
-body{background:#000;color:#fff;text-align:center;font-family:Arial;margin:0;padding:10px}
-.banner{background:#ffeb00;color:#000;padding:12px;font-weight:bold}
-.wallet{border:2px solid #ffeb00;border-radius:15px;padding:15px;margin:15px 0;word-break:break-all}
-.btn{background:#ffeb00;border:0;padding:15px;width:100%;border-radius:10px;font-weight:bold;font-size:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px}
-.box{border:2px solid #ffeb00;border-radius:15px;padding:20px 5px;font-size:13px}
-</style>
-</head>
-<body>
-<div class="banner">LOCKED - YOU MUST PAY $2 FIRST VIA TRUST WALLET</div>
-<h2>10,000,000 Papers - $2 Each</h2>
-<div class="wallet">
-Send $2 USDT BEP20 BSC via Trust Wallet to:<br>
-<span id="w" style="color:#00ff88">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</span><br><br>
-<button class="btn" onclick="navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');this.innerText='COPIED!'">COPY WALLET</button>
-<p>Network BSC BEP20 - Amount $2 USDT</p>
-<p>Available: <span id="count">1000</span> / 10,000,000</p>
-</div>
-<div class="grid" id="grid"></div>
-<script>
-let totalAvailable=1000;
-const totalMax=10000000;
-let sold=0;
-function render(){
- document.getElementById('grid').innerHTML='';
- document.getElementById('count').innerText=totalAvailable;
- for(let i=1;i<=totalAvailable;i++){
-   let d=document.createElement('div'); d.className='box';
-   d.innerText='LOCKED #'+(
-function closeModal(){
-document.getElementById('modal').style.display='none';
-}
-
-function confirmPayment(){
-const name = document.getElementById('nameInput').value;
-if(!name){alert('Enter your name');return;}
-// After user says they paid $2, we unlock and show secret words (hidden in system)
-selectedPaper.element.classList.add('claimed');
-selectedPaper.element.innerText = name.substring(0,8);
-document.getElementById('secretMsg').style.display='block';
-document.getElementById('secretMsg').innerHTML = '✅ PAYMENT VERIFIED!<br><br>Your Paper #' + selectedPaper.num + ' Claimed!<br><br>🔐 SECRET UNLOCKED:<br><b>' + SECRET_WORDS + '</b><br><br>Keep this secret code safe!';
-document.getElementById('claimedCount').innerText = document.querySelectorAll('.paper.claimed').length;
-setTimeout(closeModal,5000);
-}
-</script>
-
 </body>
 </html>
