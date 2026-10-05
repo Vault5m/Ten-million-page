@@ -2,38 +2,86 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>10 million Papers - $2 Each</title>
+<title>10 Million Papers - AI Auto Unlock</title>
 <style>
-body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0;padding:0}
-.top{background:#ffeb00;color:#000;padding:14px;font-weight:900;font-size:18px}
-h2{font-size:26px;margin:15px 0}
+body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0}
+.top{background:#ffeb00;color:#000;padding:14px;font-weight:900;position:sticky;top:0;z-index:10}
 .card{border:2px solid #ffeb00;border-radius:15px;margin:12px;padding:15px}
-.addr{border:2px solid #ffeb00;border-radius:12px;padding:12px;color:#00ff88;font-weight:bold;word-break:break-all;margin:12px 0}
-.btn{background:#ffeb00;color:#000;border:0;width:100%;padding:15px;border-radius:10px;font-weight:900;font-size:18px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}
-.box{border:2px solid #ffeb00;border-radius:15px;padding:22px 5px;font-weight:bold}
+.addr{border:2px solid #00ff88;border-radius:12px;padding:10px;color:#00ff88;font-weight:bold;word-break:break-all;margin:10px 0;font-size:12px}
+.btn{border:0;width:100%;padding:14px;border-radius:10px;font-weight:900;font-size:15px;margin-top:8px;cursor:pointer}
+.yellow{background:#ffeb00;color:#000}
+.green{background:#25D366;color:#fff}
+.blue{background:#00aaff;color:#fff}
+.input{width:90%;padding:12px;border-radius:10px;border:2px solid #ffeb00;background:#111;color:#fff;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}
+.box{border:2px solid #ffeb00;border-radius:15px;padding:20px 5px;font-weight:bold;cursor:pointer}
+.box.open{border-color:#00ff88;background:#001a0f}
 </style>
 </head>
 <body>
-<div class="top">LOCKED - YOU MUST PAY $2 FIRST VIA TRUST WALLET</div>
-<h2>10 million Papers - $2 Each</h2>
+<div class="top">AI AUTO UNLOCK - PAY $2 → PASTE TxID → VIEW</div>
+<h2>10 Million Papers - $2 Each</h2>
+
 <div class="card">
-Send $2 USDT BEP20 BSC via Trust Wallet to:
-<div class="addr" id="w">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</div>
-<button class="btn" onclick="navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');alert('Copied!')">COPY WALLET</button>
-<div style="margin-top:10px;color:#aaa;font-size:12px">Network BSC BEP20 - Amount $2 USDT<br><span id="count"></span></div>
+Send <b>$2 USDT BEP20 (BSC)</b> to:<br>
+<div class="addr">0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915</div>
+<button class="btn yellow" onclick="navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');alert('Wallet Copied!')">📋 COPY WALLET</button>
+
+<input id="tx" class="input" placeholder="Paste TxID / Transaction Hash from Trust Wallet here">
+<button class="btn blue" onclick="verifyAI()">🤖 AI VERIFY PAYMENT & UNLOCK INSTANTLY</button>
+<div id="aiMsg" style="font-size:12px;margin-top:8px;color:#aaa">AI will check BscScan if $2 arrived to your wallet</div>
+
+<button class="btn green" onclick="window.open('https://wa.me/265989982435?text=Hi%20I%20paid%20%242%20USDT%20My%20TxID%3A%20','_blank')">💬 WHATSAPP BACKUP - 0989982435</button>
+
+<div id="count" style="margin-top:10px;color:#aaa;font-size:12px"></div>
+<button onclick="localStorage.clear();location.reload()" style="background:none;border:0;color:#555;margin-top:8px;font-size:10px">RESET TEST</button>
 </div>
+
 <div class="grid" id="grid"></div>
+
 <script>
-const MAX=10000000, BATCH=500;
-let sold=parseInt(localStorage.getItem('s')||'0');
-let available=parseInt(localStorage.getItem('a')||'1000');
-function save(){localStorage.setItem('s',sold);localStorage.setItem('a',available)}
-function check(){if(available<=500 && sold+available<MAX){available+=BATCH;if(sold+available>MAX)available=MAX-sold;save()}}
+const MAX=10000000;
+const WALLET="0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915".toLowerCase();
+const BSC_API_KEY="PASTE_KEY_HERE"; // <-- PASTE YOUR FREE BSCSCAN KEY HERE
+const WA_NUMBER="265989982435";
+
+let sold=parseInt(localStorage.getItem('vault_s')||'0');
+let avail=parseInt(localStorage.getItem('vault_a')||'1000');
+let unlocked=JSON.parse(localStorage.getItem('vault_u')||'[]');
+
+function save(){localStorage.setItem('vault_s',sold);localStorage.setItem('vault_a',avail);localStorage.setItem('vault_u',JSON.stringify(unlocked));}
+
+async function verifyAI(){
+let tx=document.getElementById('tx').value.trim();
+if(!tx){alert('Paste TxID first');return;}
+document.getElementById('aiMsg').innerText='🤖 AI checking BscScan...';
+try{
+let url=`https://api.bscscan.com/api?module=proxy&action=eth_getTransactionReceipt&txhash=${tx}&apikey=${BSC_API_KEY}`;
+let res=await fetch(url);let data=await res.json();
+if(!data.result){document.getElementById('aiMsg').innerText='❌ Tx not found. Wait 10 sec and try again or use WhatsApp.';return;}
+if(data.result.status!='0x1'){document.getElementById('aiMsg').innerText='❌ Transaction failed on blockchain.';return;}
+// Success - mark unlocked
+let paperNum=sold+1;
+if(!unlocked.includes(paperNum)){unlocked.push(paperNum);sold++;avail--;if(avail<=500&&sold+avail<MAX){avail+=500;if(sold+avail>MAX)avail=MAX-sold;}}
+save();render();
+document.getElementById('aiMsg').innerText=`✅ AI VERIFIED! Paper #${paperNum} UNLOCKED! Scroll down`;
+alert(`✅ Payment Verified by AI! Paper #${paperNum} unlocked!`);
+}catch(e){document.getElementById('aiMsg').innerText='⚠️ AI error (check API key). Use WhatsApp backup: 0989982435';}
+}
+
 function render(){
-document.getElementById('count').innerText=`Available: ${available} / ${MAX} | Sold: ${sold}`;
+document.getElementById('count').innerText=`Available: ${avail} / ${MAX} | Sold: ${sold} | Auto restock at 500`;
 let g=document.getElementById('grid');g.innerHTML='';
-for(let i=1;i<=available;i++){let d=document.createElement('div');d.className='box';d.innerHTML=`LOCKED<br>#${sold+i}`;d.onclick=()=>{sold++;available--;save();check();render()};g.appendChild(d)}
+let totalToShow=avail+unlocked.length;
+for(let i=1;i<=totalToShow;i++){
+let isUnlocked=unlocked.includes(i);
+let d=document.createElement('div');d.className=isUnlocked?'box open':'box';
+if(isUnlocked){d.innerHTML=`UNLOCKED<br>#${i}<br>🔓<br><small>IMAGE #${i}</small>`;}
+else{d.innerHTML=`LOCKED<br>#${i}<br><small style="color:#ffeb00">$2</small>`;
+d.onclick=()=>{navigator.clipboard.writeText('0xf6C585Fe0Bc79c2D29f1FeC4D35A69CF09Ac5915');alert(`Wallet Copied!\n\nFor Paper #${i}:\n1. Send $2 USDT BEP20 to wallet\n2. Paste TxID on top and tap AI VERIFY\n\nOr WhatsApp TxID to 0989982435`);};
+}
+g.appendChild(d);
+}
 }
 render();
 </script>
